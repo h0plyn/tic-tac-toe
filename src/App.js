@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [board, setBoard] = useState(['', '', '', '', '', '', '', '', '']);
+  const [board, setBoard] = useState(Array(9).fill(null));
   const [isNext, setIsNext] = useState(true);
   const [winner, setWinnter] = useState(null);
 
@@ -39,7 +39,8 @@ function App() {
   return (
     <div className="App">
       <h1>Tic Tac Toe</h1>
-      {winner ? <h1>{winner} Wins!</h1> : null}
+      {winner && <h1 className="winner">{winner} Wins!</h1>}
+      {!winner && <h1>{isNext ? 'X' : 'O'} is up.</h1>}
       <div id="board">
         {board.map((square, idx) => {
           return (
