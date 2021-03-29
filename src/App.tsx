@@ -6,16 +6,8 @@ function App() {
   const [isNext, setIsNext] = useState(true);
   const [winner, setWinnter] = useState<String | null>(null);
 
-  const handleClick = (idx: number) => {
-    let boardCopy = [...board];
-    boardCopy[idx] = isNext ? 'X' : 'O';
-    setBoard(boardCopy);
-    isWinner(boardCopy);
-    setIsNext(!isNext);
-  };
-
   const isWinner = (board: Array<String>) => {
-    let winningCombos = [
+    const winningCombos = [
       [0, 1, 2],
       [3, 4, 5],
       [6, 7, 8],
@@ -26,8 +18,8 @@ function App() {
       [2, 4, 6],
     ];
 
-    for (let i = 0; i < winningCombos.length; i++) {
-      let [a, b, c] = winningCombos[i];
+    for (let i = 0; i < winningCombos.length; i += 1) {
+      const [a, b, c] = winningCombos[i];
       if (board[a] && board[a] === board[b] && board[b] === board[c]) {
         setWinnter(board[a]);
         return board[a];
@@ -36,19 +28,29 @@ function App() {
     return null;
   };
 
+  const handleClick = (idx: number) => {
+    const boardCopy = [...board];
+    boardCopy[idx] = isNext ? 'X' : 'O';
+    setBoard(boardCopy);
+    isWinner(boardCopy);
+    setIsNext(!isNext);
+  };
+
   return (
     <div className="App">
-      <h1>Tic Tac Toe</h1>
+      <h1 className="title">Tic Tac Toe</h1>
       {winner && <h1 className="winner">{winner} Wins!</h1>}
-      {!winner && <h1>{isNext ? 'X' : 'O'} is up.</h1>}
+      {!winner && (
+        <h1 className="sub-head">
+          <span className="player">{isNext ? 'X' : 'O'}</span> is up
+        </h1>
+      )}
       <div id="board">
-        {board.map((square, idx) => {
-          return (
-            <div className="square" key={idx} onClick={() => handleClick(idx)}>
-              <div className="mark-container">{board[idx]}</div>
-            </div>
-          );
-        })}
+        {board.map((square, idx) => (
+          <div className="square" key={idx} onClick={() => handleClick(idx)}>
+            <div className="mark-container">{board[idx]}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
