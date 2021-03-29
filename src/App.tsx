@@ -2,11 +2,11 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null));
+  const [board, setBoard] = useState(Array<String>(9).fill(''));
   const [isNext, setIsNext] = useState(true);
-  const [winner, setWinnter] = useState(null);
+  const [winner, setWinnter] = useState<String | null>(null);
 
-  const handleClick = (idx) => {
+  const handleClick = (idx: number) => {
     let boardCopy = [...board];
     boardCopy[idx] = isNext ? 'X' : 'O';
     setBoard(boardCopy);
@@ -14,7 +14,7 @@ function App() {
     setIsNext(!isNext);
   };
 
-  const isWinner = (board) => {
+  const isWinner = (board: Array<String>) => {
     let winningCombos = [
       [0, 1, 2],
       [3, 4, 5],
