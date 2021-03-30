@@ -6,7 +6,7 @@ function App() {
   const [isNext, setIsNext] = useState(true);
   const [winner, setWinnter] = useState<String | null>(null);
 
-  const isWinner = (board: Array<String>) => {
+  const isWinner = (activeBoard: Array<String>) => {
     const winningCombos = [
       [0, 1, 2],
       [3, 4, 5],
@@ -20,9 +20,13 @@ function App() {
 
     for (let i = 0; i < winningCombos.length; i += 1) {
       const [a, b, c] = winningCombos[i];
-      if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-        setWinnter(board[a]);
-        return board[a];
+      if (
+        activeBoard[a] &&
+        activeBoard[a] === activeBoard[b] &&
+        activeBoard[b] === activeBoard[c]
+      ) {
+        setWinnter(activeBoard[a]);
+        return activeBoard[a];
       }
     }
     return null;
@@ -46,7 +50,7 @@ function App() {
         </h1>
       )}
       <div id="board">
-        {board.map((square, idx) => (
+        {board.map((_square, idx) => (
           <div className="square" key={idx} onClick={() => handleClick(idx)}>
             <div className="mark-container">{board[idx]}</div>
           </div>
