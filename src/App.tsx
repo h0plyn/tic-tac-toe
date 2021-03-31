@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   const [board, setBoard] = useState(Array<String>(9).fill(''));
   const [isNext, setIsNext] = useState(true);
-  const [winner, setWinnter] = useState<String | null>(null);
+  const [winner, setWinner] = useState<String | null>(null);
 
   const isWinner = (activeBoard: Array<String>) => {
     const winningCombos = [
@@ -25,7 +25,7 @@ function App() {
         activeBoard[a] === activeBoard[b] &&
         activeBoard[b] === activeBoard[c]
       ) {
-        setWinnter(activeBoard[a]);
+        setWinner(activeBoard[a]);
         return activeBoard[a];
       }
     }
@@ -34,10 +34,17 @@ function App() {
 
   const handleClick = (idx: number) => {
     const boardCopy = [...board];
-    boardCopy[idx] = isNext ? 'X' : 'O';
-    setBoard(boardCopy);
-    isWinner(boardCopy);
-    setIsNext(!isNext);
+    if (!boardCopy[idx]) {
+      boardCopy[idx] = isNext ? 'X' : 'O';
+      setBoard(boardCopy);
+      isWinner(boardCopy);
+      setIsNext(!isNext);
+    }
+  };
+
+  const playAgain = () => {
+    setBoard(Array<String>(9).fill(''));
+    setWinner(null);
   };
 
   return (
@@ -50,7 +57,7 @@ function App() {
         </h1>
       )}
       <div id="board">
-        {board.map((_square, idx) => (
+        {board.map((square, idx) => (
           <div
             className="square"
             key={Math.random()}
@@ -60,6 +67,11 @@ function App() {
           </div>
         ))}
       </div>
+      {winner && (
+        <button className="play-again" onClick={() => playAgain()}>
+          Play Again
+        </button>
+      )}
     </div>
   );
 }
