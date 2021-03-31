@@ -13,12 +13,13 @@ body {
   height: 100%;
   min-height: 100vh;
   background-color: #55423d;
+  max-width: 1920px;
+  margin: auto;
 }
 
 #board {
   width: 30.5rem;
-  height: 30rem;
-  border: 4px solid #140d0b;
+  height: 30.5rem;
   border-radius: 5px;
   display: flex;
   flex-wrap: wrap;
@@ -29,10 +30,26 @@ body {
 }
 
 .square {
-  border: 1px solid #140d0b;
+  border: 2px solid #140d0b;
   width: 10rem;
   height: 10rem;
   background-color: #fff3ec;
+}
+
+.square:nth-child(-n + 3) {
+  border-top: unset;
+}
+
+.square:nth-last-child(-n + 3) {
+  border-bottom: unset;
+}
+
+.square:nth-child(3n) {
+  border-right: unset;
+}
+
+.square:nth-child(3n + 1) {
+  border-left: unset;
 }
 
 .mark-container {
@@ -58,7 +75,7 @@ body {
   color: #fff3ec;
 }
 
-.player {
+.purple {
   color: #9656a1;
 }
 
@@ -75,7 +92,10 @@ body {
 }
 
 .leaderboard {
+  display: flex;
+  justify-content: space-evenly;
   color: #fff3ec;
+  width: 100%;
 }
 
 .leaderboard-player {
