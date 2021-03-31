@@ -51,7 +51,11 @@ function App() {
       )}
       <div id="board">
         {board.map((_square, idx) => (
-          <div className="square" key={idx} onClick={() => handleClick(idx)}>
+          <div
+            className="square"
+            key={Math.random()}
+            onClick={() => handleClick(idx)}
+          >
             <div className="mark-container">{board[idx]}</div>
           </div>
         ))}
