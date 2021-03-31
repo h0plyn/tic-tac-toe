@@ -2,11 +2,18 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [board, setBoard] = useState(Array<String>(9).fill(''));
+  const [board, setBoard] = useState<Array<string>>(Array(9).fill(''));
   const [isNext, setIsNext] = useState(true);
-  const [winner, setWinner] = useState<String | null>(null);
+  const [winner, setWinner] = useState<string>('');
 
-  const isWinner = (activeBoard: Array<String>) => {
+  interface Leaderboard {
+    x: number;
+    o: number;
+  }
+
+  const [leaderboard, setLeaderboard] = useState<Leaderboard>({ x: 0, o: 0 });
+
+  const isWinner = (activeBoard: Array<string>) => {
     const winningCombos = [
       [0, 1, 2],
       [3, 4, 5],
@@ -42,9 +49,13 @@ function App() {
     }
   };
 
-  const playAgain = () => {
-    setBoard(Array<String>(9).fill(''));
-    setWinner(null);
+  const playAgain = (winner: string) => {
+    setBoard(Array<string>(9).fill(''));
+    const updateLeaderboard = winner === 'X' ? true : false;
+    if (updateLeaderboard)
+      setLeaderboard({ ...leaderboard, x: leaderboard.x + 1 });
+    else setLeaderboard({ ...leaderboard, o: leaderboard.o + 1 });
+    setWinner('');
   };
 
   return (
@@ -68,9 +79,16 @@ function App() {
         ))}
       </div>
       {winner && (
-        <button className="play-again" onClick={() => playAgain()}>
+        <button className="play-again" onClick={() => playAgain(winner)}>
           Play Again
         </button>
+      )}
+      {(leaderboard.x || leaderboard.o) && (
+        <>
+          <h2 className="leaderboard">Leaderboard:</h2>
+          <h2 className="leaderboard-player">X: {leaderboard.x}</h2>
+          <h2 className="leaderboard-player">O: {leaderboard.o}</h2>
+        </>
       )}
     </div>
   );

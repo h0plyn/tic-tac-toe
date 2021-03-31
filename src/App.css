@@ -73,3 +73,11 @@ body {
   font-size: 2rem;
   text-decoration: none;
 }
+
+.leaderboard {
+  color: #fff3ec;
+}
+
+.leaderboard-player {
+  color: #e78fb3;
+}
