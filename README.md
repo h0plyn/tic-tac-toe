@@ -8,3 +8,7 @@ A repo to test TypeScript and game logic.
 - React
 - React Hooks
 - `create-react-app`
+
+### To Do
+
+- Refactor with Custom Hook for Game Logic

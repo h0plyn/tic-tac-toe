@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import './App.css';
 
+interface Leaderboard {
+  x: number;
+  o: number;
+}
+
 function App() {
   const [board, setBoard] = useState<string[]>(Array(9).fill(''));
-  const [isNext, setIsNext] = useState(true);
+  const [isNext, setIsNext] = useState<boolean>(true);
   const [winner, setWinner] = useState<string>('');
   const [tie, setTie] = useState<boolean>(false);
-
-  interface Leaderboard {
-    x: number;
-    o: number;
-  }
-
   const [leaderboard, setLeaderboard] = useState<Leaderboard>({ x: 0, o: 0 });
 
   const isWinner = (activeBoard: string[]) => {
